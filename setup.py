@@ -3,7 +3,7 @@ import setuptools
 import os
 import pathlib
 
-HERE = pathlib.Path(__file__).parent
+here = pathlib.Path(__file__).parent
 
 
 def get_version():
