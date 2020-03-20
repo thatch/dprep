@@ -17,7 +17,7 @@ def get_requirements():
 
 setup(
     name='dprep',
-    packages=['lib'],
+    packages=['dprep'],
     version=get_version(),
     license='MIT',
     # Give a short description about your library
