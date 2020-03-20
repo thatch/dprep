@@ -1,9 +1,8 @@
 from distutils.core import setup
 import setuptools
 import os
-import pathlib
 
-here = pathlib.Path(__file__).parent
+here = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_version():
