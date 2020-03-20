@@ -1,8 +1,9 @@
 from distutils.core import setup
 import setuptools
 import os
+import pathlib
 
-here = os.path.abspath(os.path.dirname(__file__))
+HERE = pathlib.Path(__file__).parent
 
 
 def get_version():
@@ -30,6 +31,7 @@ setup(
     # Keywords that define your package best
     keywords=['data', 'data science', 'ai', 'artificial intelligence'],
     install_requires=get_requirements(),
+    include_package_data=True,
     classifiers=[
         # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
         'Development Status :: 3 - Alpha',
