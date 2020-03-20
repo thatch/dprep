@@ -101,15 +101,18 @@ class dprep:
 
         return indices
 
-    def remove(self, indices):
+    def remove_by_filter(self, indices):
         self.df = self.df[~self.df.index.isin(indices)]
 
         return len(indices)
 
-    def remove_inverted(self, indices):
+    def remove_by_filter_inverted(self, indices):
         self.df = self.df[self.df.index.isin(indices)]
 
         return len(indices)
+
+    def remove_by_column_name(self, column_name):
+        self.df = self.df.drop(columns=column_name)
 
     def invert_indices(self, indices):
         return list(self.df[~self.df.index.isin(indices)].index.values)
@@ -129,8 +132,19 @@ class dprep:
         for index in indices:
             self.df.loc[index, column_name] = random.choice(random_values)
 
+    def normalize_number_between(self, column_name, min, max):
+        maxColumnValue = self.df[column_name].max()
+        minColumnValue = self.df[column_name].min()
+
+        a = (max-min)/(maxColumnValue-minColumnValue)
+        b = min - (a * minColumnValue)
+
+        self.df[column_name] = self.df[column_name].apply(
+            lambda oldValue: a * oldValue + b)
+
 
 # --- HELPERS ---
+
 
 # Merge array without duplicates
 def merge_array(one, two):
@@ -165,7 +179,6 @@ def is_string(val):
 
 def regex_filter(val, regex):
     if val:
-        print(str(val))
         mo = re.search(regex, str(val))
         if mo:
             return True
