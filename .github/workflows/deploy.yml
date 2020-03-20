@@ -1,10 +1,29 @@
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "v*"
 
-name: Create Release
+name: Release and deploy
 
 jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: Automatical release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
   deploy:
     name: Deploy to PyPi
     runs-on: ubuntu-latest
@@ -19,6 +38,9 @@ jobs:
 
       - name: Install pip
         run: python -m pip install --upgrade pip
+
+      - name: Build code
+        run: python setup.py sdist
 
       - name: Install publishing requirements
         run: pip install twine
