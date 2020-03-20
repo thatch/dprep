@@ -12,6 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Build
+        run: python setup.py sdist
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -20,6 +29,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: Automatical release v${{ github.ref }}
+          body: Automatical release ${{ github.ref }}
           draft: false
           prerelease: false
