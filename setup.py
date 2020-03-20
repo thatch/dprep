@@ -1,14 +1,17 @@
 from distutils.core import setup
 import setuptools
+import os
+
+here = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_version():
-    f = open("VERSION", "r")
+    f = open(os.path.join(here, "VERSION"), "r")
     return f.read()
 
 
 def get_requirements():
-    f = open("requirements.txt", "r")
+    f = open(os.path.join(here, "requirements.txt"), "r")
     return f.read().split("\n")
 
 
