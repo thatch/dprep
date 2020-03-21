@@ -5,7 +5,7 @@ import re
 import random
 
 
-class df:
+class prepare(pd.DataFrame):
     df = pd.DataFrame(index=[""], columns=[""])
 
     def __init__(self, dataframe):
