@@ -1,1 +1,1 @@
-from dprep import df
+from dprep import prepare
